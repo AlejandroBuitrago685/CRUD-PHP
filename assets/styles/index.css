@@ -1,0 +1,108 @@
+
+  body {
+    background-color: white;
+    font-family: 'Varela Round', sans-serif;
+    line-height: 1.5;
+    margin: 0;
+    min-block-size: 100vh;
+    padding: 5vmin;
+    display: grid;
+    place-items: center;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: red;
+  }
+  
+  input {
+    background-image: none;
+    border: none;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s;
+  }
+
+  
+  .button {
+    background-color: #eff1f0;
+    color: #777;
+    border: #777 1px solid;
+    padding: 0.25em 1.5em;
+    border-radius: 10px;
+  }
+  
+  .button:focus,
+  .button:hover {
+    background-color: rgb(218, 216, 216);
+    color: black;
+    cursor: pointer;
+  }
+
+  .icon {
+    fill: currentcolor;
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+  }
+  
+  .login {
+    width: 400px;
+    height: auto;
+  }
+  
+  .login__header {
+    background-color: #6352f9;
+    border-top-left-radius: 1.25em;
+    border-top-right-radius: 1.25em;
+    color: #fff;
+    padding: 1.25em 1.625em;
+  }
+  
+  .login__header :first-child {
+    margin-top: 0;
+  }
+  
+  .login__header :last-child {
+    margin-bottom: 0;
+  }
+  
+  .login h2 .icon {
+    margin-right: 14px;
+  }
+  
+  .login__form {
+    background-color: #fff;
+    border-bottom-left-radius: 1.25em;
+    border-bottom-right-radius: 1.25em;
+    color: #777;
+    display: grid;
+    gap: 0.875em;
+    padding: 1.25em 1.625em;
+    border: 1px solid gray;
+  }
+  
+  .login input {
+    border-radius: 0.1875em;
+  }
+  
+  .login #nombre,
+  .login #email,
+  .login #coste,
+  .login #precio,
+  .login #id  {
+    background-color: #eee;
+    color: black;
+    padding: 0.25em 0.625em;
+    width: 95%;
+  }
+  
+  .login input[type="submit"]{
+    display: block;
+    margin: 0 auto;
+  }

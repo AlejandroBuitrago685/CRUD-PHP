@@ -1,0 +1,80 @@
+body {
+    font-family: 'Varela Round', sans-serif;
+}
+
+table {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    width: auto;
+    text-align: center;
+    margin: 0 auto;
+}
+
+
+th {
+    background-color: #ea6153;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    border-bottom: 1px black;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+tr {
+    background-color: #f1f1f1;
+}
+
+td {
+    padding: 5px;
+}
+
+.editar{
+    margin-left: 10px;
+    background-image:url('https://cdn-icons-png.flaticon.com/512/1159/1159633.png');
+    background-repeat:no-repeat;
+    height:40px;
+    width:40px;
+    border: none;
+    background-size: 25px 25px;
+    background-position:center;
+    cursor: pointer;
+}
+
+.editar:hover{
+    background-size: 30px 30px;
+    background-image:url('https://cdn-icons-png.flaticon.com/512/1159/1159876.png');
+}
+
+.borrar{
+    margin-left: 10px;
+    background-image:url('https://cdn-icons-png.flaticon.com/512/1828/1828947.png');
+    background-repeat:no-repeat;
+    height:40px;
+    width:40px;
+    border: none;
+    background-size: 25px 25px;
+    background-position:center;
+    cursor: pointer;
+}
+
+.borrar:hover{
+    background-size: 30px 30px;
+    background-image:url('https://cdn-icons-png.flaticon.com/512/1828/1828851.png');
+}
+
+.create-button {
+    border-radius: 10px;
+    border: none;
+}
+
+.create-button:hover{
+    cursor: pointer;
+}

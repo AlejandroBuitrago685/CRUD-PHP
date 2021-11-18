@@ -1,0 +1,37 @@
+body {
+    font-family: 'Varela Round', sans-serif;
+    line-height: 1.5;
+    margin: 0;
+    min-block-size: 100vh;
+    padding: 5vmin;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+}
+
+label{
+    text-shadow: 2px 2px 5px #88888869;
+}
+
+.container{
+    border: 2px solid black;
+    padding: 20px;
+    border-radius:
+    10px; text-align:
+    center;
+    box-shadow: 5px 5px 8px #888888;
+}
+
+button{
+    background-color: royalblue;
+    border-radius: 10px;
+    border: none;
+    padding: 8px;
+    color: white;
+    width: 150px;
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: rgb(62, 107, 241);
+}
