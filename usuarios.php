@@ -19,7 +19,7 @@
             $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
         ?>
 
-        <button class="create-button">Crear nuevo usuario</button>
+        <button class="create-button" onclick="location.href='formUsuarios.php?type=add'">Crear nuevo usuario</button>
 
         <table style="border=1px solid black">
 
@@ -57,9 +57,13 @@
                         <td><?php echo $row['Enabled']; ?></td>
                         <td>
                             <?php 
-                                if($isAdmin) echo '<button class="editar" disabled></button>' . '<button class="borrar" disabled></button>'; //Si el usuario de la fila es SuperAdmin deshabilitamos los botones de modificar y borrar
-
-                                else echo '<button class="editar"></button>' . '<button class="borrar"></button>';
+                                if($isAdmin){
+                                    echo '<button class="editar" disabled></button>' . '<button class="borrar" disabled></button>'; //Si el usuario de la fila es SuperAdmin deshabilitamos los botones de modificar y borrar
+                                }
+                                else{
+                                    echo '<button class="editar" onclick="window.location.href='."'formUsuarios.php?type=modify&id=".$row['UserID']."'\"".'></button>';
+                                    echo '<button class="borrar" onclick="window.location.href='."'formUsuarios.php?type=delete&id=".$row['UserID']."'\"".'></button>';
+                                }
                             ?>
                         </td>
                         </tr>

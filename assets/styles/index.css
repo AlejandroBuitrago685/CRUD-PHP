@@ -95,7 +95,9 @@
   .login #email,
   .login #coste,
   .login #precio,
-  .login #id  {
+  .login #pass,
+  .login #idproducto,
+  .login #idUser{
     background-color: #eee;
     color: black;
     padding: 0.25em 0.625em;
@@ -105,4 +107,8 @@
   .login input[type="submit"]{
     display: block;
     margin: 0 auto;
+  }
+
+  fieldset{
+    border: none;
   }

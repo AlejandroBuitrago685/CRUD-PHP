@@ -76,7 +76,6 @@
                 $Cost = $_POST['coste'];
                 $CategoryID = $_POST['categoria'];
                 $product = array("Name" => $Name, "Price" => floatval($Price), "Cost" => floatval($Cost), "CategoryID" => intval($CategoryID));
-                echo var_dump($_POST);
                 if(addProduct($product)){
                     echo '<div style="text-align: center;">';
                         echo '<label>Se ha agregado el producto correctamente.</label><br><br>';

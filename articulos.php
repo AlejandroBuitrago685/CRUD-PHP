@@ -13,7 +13,7 @@
             if(isset($_SESSION["rol"]) && !$_SESSION["rol"] === "admin") header("location: userRedirection.php");
             
             $columns = array('ProductID','CategoryID','Name', 'Cost', 'Price'); //Array con las columnas de la tabla
-            $column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
+            $column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0]; //Si existe column y se encuentra en el array $columns coge column sino existe coge el primer elemento del array $columns
             $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC'; //Indica a través de los headers de qué manera se ordena la tabla (ASC o DESC)
 
             $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc'; //Esto varía el orden de ordenación de la tabla en ascendente o descendente
