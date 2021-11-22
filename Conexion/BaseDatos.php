@@ -25,9 +25,13 @@
         else echo "No se han encontrado usuarios en la base de datos";
 	}
 
-	function getUsersOrderBy($column, $sort_order) { //Función para ordenar los datos de una tabla en función del encabezado o columna
+	function getUsersOrderBy($column, $sort_order, $min, $max) { //Función para ordenar los datos de una tabla en función del encabezado o columna
 		$DB = Conectar(); //Conectamos con la base de datos
-		$sql = sprintf("SELECT * FROM user ORDER BY %s %s", mysqli_real_escape_string($DB,$column), mysqli_real_escape_string($DB,$sort_order)); //Pasamos a la consulta los parámetros (encabezado por el que ordenar y si es ASC o DESC)
+		$sql = sprintf("SELECT * FROM user ORDER BY %s %s LIMIT %s, %s",
+		mysqli_real_escape_string($DB,$column),
+		mysqli_real_escape_string($DB,$sort_order),
+		mysqli_real_escape_string($DB,$min),
+		mysqli_real_escape_string($DB,$max));
 		$result = mysqli_query($DB, $sql); //Realizamos la consulta especificada
 
 		if (mysqli_num_rows($result) !=0) return $result; //Si ha devuelto columnas retornamos el resultado
@@ -36,15 +40,20 @@
 	}
 
 
-	function getProductsOrderBy($column, $sort_order) { //Funciona exactamente igual que getUsersOrderBy()
+	function getProductsOrderBy($column, $sort_order, $min, $max) { //Funciona exactamente igual que getUsersOrderBy()
 		$DB = Conectar();
-		$sql = sprintf("SELECT * FROM product ORDER BY %s %s", mysqli_real_escape_string($DB,$column), mysqli_real_escape_string($DB,$sort_order));
+		$sql = sprintf("SELECT * FROM product ORDER BY %s %s LIMIT %s, %s",
+		mysqli_real_escape_string($DB,$column),
+		mysqli_real_escape_string($DB,$sort_order),
+		mysqli_real_escape_string($DB,$min),
+		mysqli_real_escape_string($DB,$max));
 		$result = mysqli_query($DB, $sql);
 
 		if (mysqli_num_rows($result) !=0) return $result;
 
         else echo "No se han encontrado resultados en la base de datos";
 	}
+
 
 	function getProducts() { //Función para obtener todos los productos, funciona igual que getUsers()
 
@@ -56,6 +65,33 @@
 			
         else echo "No se han encontrado resultados en la base de datos";
 	}
+
+	function getProductsCount() { //Función para obtener la cantidad de productos
+
+		$DB = Conectar();
+		$sql = "SELECT COUNT(*) AS cantidad FROM product";
+		$cantidad = mysqli_query($DB, $sql) -> fetch_assoc();
+
+		if ($cantidad['cantidad'] != null){
+			return $cantidad['cantidad'];
+		}
+			
+        else echo "No se han encontrado resultados en la base de datos";
+	}
+
+	function getUsersCount() { //Función para obtener la cantidad de usuarios, Funciona igual que getProductsCount
+
+		$DB = Conectar();
+		$sql = "SELECT COUNT(*) AS cantidad FROM user";
+		$cantidad = mysqli_query($DB, $sql) -> fetch_assoc();
+
+		if ($cantidad['cantidad'] != null){
+			return $cantidad['cantidad'];
+		}
+			
+        else echo "No se han encontrado resultados en la base de datos";
+	}
+	
 
 	function getProductsByID($id) { //Funciona igual que getProducts pero en este caso pasamos el id para obtener un producto por su ID, se lo pasamos a la ocnsulta sql
 

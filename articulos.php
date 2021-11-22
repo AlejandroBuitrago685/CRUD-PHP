@@ -8,7 +8,7 @@
     <body>
 
         <?php
-            if(!isset($_SESSION)) session_start(); //Comporbamos la sesión
+            if(!isset($_SESSION)) session_start(); //Comporbamos si la sesión está inciada
 
             if(isset($_SESSION["rol"]) && !$_SESSION["rol"] === "admin") header("location: userRedirection.php");
             
@@ -26,40 +26,66 @@
         
         ?>
 
+        <?php
+                require "Conexion/BaseDatos.php";
+                $page = 0;
+                $min = 0;
+                $size= 10;
+                $nProducts = getProductsCount();
+                
+                if(!isset($_GET['page'])){
+                    header("location: articulos.php?page=1");
+                }
+                else {
+                    $page = intval($_GET['page']) -1;
+                    $min = $size * $page;
+                    $page = $page + 1;
+                }
+
+
+                $listado = getProductsOrderBy($column, $sort_order, $min, $size); //Obtenemos los productos ya ordenados, ya que pasmos los datos necesarios al método de la consulta
+        ?>
+
         <table style="border=1px solid black">
             <tr>
-                <th><a href="articulos.php?column=ProductID&order=<?php echo $asc_or_desc; ?>">ID</a></th> <!--Creamos cada encabezado e insertamos el header correspondiente para su ordenación-->
-                <th><a href="articulos.php?column=CategoryID&order=<?php echo $asc_or_desc; ?>">Categoría</a></th>
-                <th><a href="articulos.php?column=Name&order=<?php echo $asc_or_desc; ?>">Nombre</a></th>
-                <th><a href="articulos.php?column=Cost&order=<?php echo $asc_or_desc; ?>">Coste</a></th>
-                <th><a href="articulos.php?column=Price&order=<?php echo $asc_or_desc; ?>">Precio</a></th>
+                <th><a href="articulos.php?page=1&column=ProductID&order=<?php echo $asc_or_desc; ?>">ID</a></th> <!--Creamos cada encabezado e insertamos el header correspondiente para su ordenación-->
+                <th><a href="articulos.php?page=1&column=CategoryID&order=<?php echo $asc_or_desc; ?>">Categoría</a></th>
+                <th><a href="articulos.php?page=1&column=Name&order=<?php echo $asc_or_desc; ?>">Nombre</a></th>
+                <th><a href="articulos.php?page=1&column=Cost&order=<?php echo $asc_or_desc; ?>">Coste</a></th>
+                <th><a href="articulos.php?page=1&column=Price&order=<?php echo $asc_or_desc; ?>">Precio</a></th>
                 <?php if(isset($_SESSION["rol"]) && $_SESSION["rol"] === "admin") echo "<th>Manejo</th>"; ?> <!--Si es superAdmin mostramos esta columna/encabezado-->  
             </tr>
 
-            <?php
-                require "Conexion/BaseDatos.php";
-                $listado = getProductsOrderBy($column, $sort_order); //Obtenemos los productos ya ordenados, ya que pasmos los datos necesarios al método de la consulta
-            ?>
-
             <?php 
-               foreach($listado as $tabla){//Mostramos una fila por cada producto que haya en la BBDD
-                    $category = getCategory($tabla); //Esta consulta nos devuelve el nombre de la categoría
-                    foreach($category as $cat){ //Realizamos esta iteración para poder mostrar los nombres de las categorías ne lugar de su ID
-                        echo "<tr><td>" . $tabla['ProductID'] . "</td>";
+               foreach($listado as $fila){ //Mostramos una fila por cada producto que haya en la BBDD
+                    $category = getCategory($fila); //Esta consulta nos devuelve el nombre de la categoría
+                    foreach($category as $cat){ //Realizamos esta iteración para poder mostrar los nombres de las categorías en lugar de su ID
+                        echo "<tr><td>" . $fila['ProductID'] . "</td>";
                         echo "<td>" . $cat['Name'] . "</td>";
-                        echo "<td>" . $tabla['Name'] . "</td>";
-                        echo "<td>" . $tabla['Cost'] . "</td>";
-                        echo "<td>" . $tabla['Price'] . "</td>";
+                        echo "<td>" . $fila['Name'] . "</td>";
+                        echo "<td>" . $fila['Cost'] . "</td>";
+                        echo "<td>" . $fila['Price'] . "</td>";
                         if(isset($_SESSION["rol"]) && $_SESSION["rol"] === "admin"){ //Comprobamos si el usuario es SuperAdmin para mostrar o no los botones de modificación y borrado
-                            echo "<td>" . '<button class="editar-button" onclick="window.location.href='."'formArticulos.php?type=modify&id=".$tabla['ProductID']."'\"".'></button>';
-                            echo '<button class="borrar-button" onclick="window.location.href='."'formArticulos.php?type=delete&id=".$tabla['ProductID']."'\"".'></button>' . "</td></tr>";
+                            echo "<td>" . '<button class="editar-button" onclick="window.location.href='."'formArticulos.php?type=modify&id=".$fila['ProductID']."'\"".'></button>';
+                            echo '<button class="borrar-button" onclick="window.location.href='."'formArticulos.php?type=delete&id=".$fila['ProductID']."'\"".'></button>' . "</td></tr>";
                         }   
                     }
-                    
                 }
-                ?>
-
+            ?>
+            
         </table>
+            <?php
 
+            if($page > 1){
+                echo "<button class=\"paginate\" onclick=\"window.location.href='articulos.php?page=".$page-1 ."'\">Anterior</button>";
+            }
+
+            echo "<label>Página ".$page." / ".ceil($nProducts/$size)."</label>";
+
+            if(ceil($nProducts/$size) > $page ){
+                echo "<button class=\"paginate\" onclick=\"window.location.href='articulos.php?page=".$page+1 ."'\">Siguiente</button>";
+            }
+
+            ?>
     </body>
 </html>

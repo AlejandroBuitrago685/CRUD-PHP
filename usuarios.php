@@ -20,24 +20,39 @@
         ?>
 
         <button class="create-button" onclick="location.href='formUsuarios.php?type=add'">Crear nuevo usuario</button>
+        
+        <?php
+                require "Conexion/BaseDatos.php";
+                $page = 0;
+                $min = 0;
+                $size= 10;
+                $nUsers = getUsersCount();
+                
+                if(!isset($_GET['page'])){
+                    header("location: usuarios.php?page=1");
+                }
+                else {
+                    $page = intval($_GET['page']) -1;
+                    $min = $size * $page;
+                    $page = $page + 1;
+                }
+
+                $listado = getUsersOrderBy($column, $sort_order, $min, $size); //Obtenemos los productos ya ordenados, ya que pasmos los datos necesarios al método de la consulta
+        ?>
 
         <table style="border=1px solid black">
 
 
             <tr>
-                <th><a href="usuarios.php?column=UserID&order=<?php echo $asc_or_desc; ?>">ID</a></th>
-                <th><a href="usuarios.php?column=FullName&order=<?php echo $asc_or_desc; ?>">Nombre</a></th>
-                <th><a href="usuarios.php?column=Email&order=<?php echo $asc_or_desc; ?>">Email</a></th>
-                <th><a href="usuarios.php?column=LastAccess&order=<?php echo $asc_or_desc; ?>">Último acceso</a></th>
-                <th><a href="usuarios.php?column=Enabled&order=<?php echo $asc_or_desc; ?>">Enabled</a></th>
+                <th><a href="usuarios.php?page=1&column=UserID&order=<?php echo $asc_or_desc; ?>">ID</a></th>
+                <th><a href="usuarios.php?page=1&column=FullName&order=<?php echo $asc_or_desc; ?>">Nombre</a></th>
+                <th><a href="usuarios.php?page=1&column=Email&order=<?php echo $asc_or_desc; ?>">Email</a></th>
+                <th><a href="usuarios.php?page=1&column=LastAccess&order=<?php echo $asc_or_desc; ?>">Último acceso</a></th>
+                <th><a href="usuarios.php?page=1&column=Enabled&order=<?php echo $asc_or_desc; ?>">Enabled</a></th>
                 <th>Manejo</th>
             </tr>
             
             <?php
-
-                require "Conexion/BaseDatos.php";
-                $listado = getUsersOrderBy($column, $sort_order);
-
                 if(isset($_SESSION["rol"]) && $_SESSION["rol"] === "admin"){ //A modo de seguridad comprobamos el rol de usuario
             ?>
 
@@ -69,6 +84,20 @@
                         </tr>
                     <?php endwhile;  } //Cerramos el if de rol de usuario y terminamos el bucle?>
         </table>
+
+        <?php
+
+            if($page > 1){
+                echo "<button class=\"paginate\" onclick=\"window.location.href='usuarios.php?page=".$page-1 ."'\">Anterior</button>";
+            }
+
+            echo "<label>Página ".$page." / ".ceil($nUsers/$size)."</label>";
+
+            if(ceil($nUsers/$size) > $page ){
+                echo "<button class=\"paginate\" onclick=\"window.location.href='usuarios.php?page=".$page+1 ."'\">Siguiente</button>";
+            }
+
+            ?>
 
     </body>
 </html>
