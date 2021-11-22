@@ -20,15 +20,15 @@
 
 	?>
 
-	<div class="login">
+	<div class="formulary">
 
-		<header class="login__header">
+		<header class="formulary__header">
 			<h2><svg class="icon">
 				<use xlink:href="#icon-lock"/>
 			</svg>Iniciar sesión</h2>
 		</header>
 
-		<form action="Conexion/login.php" class="login__form" method="POST"> <!--Creamos el formulario y le pasamos la información a login.php-->
+		<form action="Conexion/login.php" class="formulary__form" method="POST"> <!--Creamos el formulario y le pasamos la información a login.php-->
 
 			<div>
 				<label for="nombre">Nombre completo*</label>

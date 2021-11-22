@@ -7,6 +7,10 @@
     </head>
     <body>
 
+    <div class= "menu">
+        <a href="acceso.php">Inicio</a>
+    </div>
+
         <?php
             if(!isset($_SESSION)) session_start(); //Comporbamos si la sesión está inciada
 
@@ -74,18 +78,21 @@
             ?>
             
         </table>
+        <div class="pagination">
             <?php
 
             if($page > 1){
                 echo "<button class=\"paginate\" onclick=\"window.location.href='articulos.php?page=".$page-1 ."'\">Anterior</button>";
             }
 
-            echo "<label>Página ".$page." / ".ceil($nProducts/$size)."</label>";
+            echo "<label class='page-indicator'>Página ".$page." / ".ceil($nProducts/$size)."</label>";
 
             if(ceil($nProducts/$size) > $page ){
                 echo "<button class=\"paginate\" onclick=\"window.location.href='articulos.php?page=".$page+1 ."'\">Siguiente</button>";
             }
 
             ?>
+
+        </div>
     </body>
 </html>

@@ -7,6 +7,10 @@
     </head>
     <body>
 
+    <div class= "menu">
+        <a href="acceso.php">Inicio</a>
+    </div>
+
         <?php
         
             if(!isset($_SESSION)) session_start(); //Comporbamos la sesión
@@ -84,7 +88,7 @@
                         </tr>
                     <?php endwhile;  } //Cerramos el if de rol de usuario y terminamos el bucle?>
         </table>
-
+        <div class="pagination">
         <?php
 
             if($page > 1){
@@ -98,6 +102,6 @@
             }
 
             ?>
-
+        </div>
     </body>
 </html>

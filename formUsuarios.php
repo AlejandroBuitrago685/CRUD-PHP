@@ -99,18 +99,26 @@
 
         ?>
 
-        <div class="login">
-                            <?php 
-                                if($type == "modify"){
-                                    echo  '<label>Se va a modificar un usuario</label>';
-                                }
-                                if($type == "delete"){
-                                    echo  '<label>Se va a eliminar un usuario</label>';
-                                }
-                                if($type == "add"){
-                                    echo  '<label>Se va a añadir un usuario nuevo</label>';
-                                }
-                            ?> 
+        
+
+        <div class="formulary">
+
+                            <header class="formulary__header">
+                                <h2>
+                                    <?php 
+                                    if($type == "modify"){
+                                        echo  '<label>Se va a modificar un usuario</label>';
+                                    }
+                                    if($type == "delete"){
+                                        echo  '<label>Se va a eliminar un usuario</label>';
+                                    }
+                                    if($type == "add"){
+                                        echo  '<label>Se va a añadir un usuario nuevo</label>';
+                                    }
+                                    ?>
+                                </h2>
+                            </header>
+                            
                     <form action="
                     <?php
                     
@@ -121,7 +129,7 @@
                             echo "formUsuarios.php?add=success";
                         }
 
-                    ?>" class="login__form" method="POST" id="formulario">
+                    ?>" class="formulary__form" method="POST" id="formulario">
 
                         <div>
                             <label for="idUser">ID</label>
