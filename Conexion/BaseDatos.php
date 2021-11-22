@@ -1,5 +1,10 @@
 <?php
 
+
+	//Me hubiera gustado simplificar y abstraer bien todas estas funciones, ya que muchas son similares y se pueden fusionar en una sola,
+	//sin embargo, debido a mi trabajo, no he tenido el timepo suficiente
+
+
     function Conectar() { //Función para conectar la base de datos
 
         $host = "localhost";
@@ -104,7 +109,7 @@
         else echo "No se han encontrado resultados en la base de datos";
 	}
 
-	function getUsersByID($id) { //Funciona igual que getProductsByID
+	function getUsersByID($id) { //Funciona similar que getProductsByID
 
 		$DB = Conectar();
 		$sql = sprintf("SELECT * FROM user WHERE UserID = %s", mysqli_real_escape_string($DB,$id));
@@ -117,7 +122,7 @@
 
 
 
-	function getCategory($tabla){ //Función para obtener el nombre de una categoría en lugar de su id, para poder mostrarla correctamente en la tabla
+	function getCategory($tabla){ //Función para obtener el nombre de una categoría en lugar de su id, para poder mostrarla correctamente en la tabla, esta función recibe como parámetro una fila de la tabla artículos
 		$DB = Conectar();
 			$sql = "SELECT Name FROM category where CategoryID=$tabla[CategoryID]";	 //Obtenemos el ID de la categoría de cada fila de la tabla mediante: $tabla[CategoryID]
 			$category = mysqli_query($DB, $sql);
@@ -128,9 +133,9 @@
 									
 	}
 
-	function getCategoryByID($id){
+	function getCategoryByID($id){ //Función para obtener el nombre de un categoría de artículo mediante su ID
 		$DB = Conectar();
-		$sql = sprintf("SELECT Name FROM category where CategoryID= %s" ,mysqli_real_escape_string($DB,$id));	
+		$sql = sprintf("SELECT Name FROM category where CategoryID= %s" ,mysqli_real_escape_string($DB,$id));//Consulta con el parámetro id recibido
 		$category = mysqli_query($DB, $sql) -> fetch_assoc();
 
 		if (mysqli_num_rows($category) !=0) return $category["Name"];
@@ -139,30 +144,30 @@
 									
 	}
 
-	function deleteProduct($id){
+	function deleteProduct($id){ //Función para eliminar un artículo mediante su id
 		$DB = Conectar();
-		$sql = sprintf("DELETE FROM product WHERE ProductID= %s" ,mysqli_real_escape_string($DB,$id));	
+		$sql = sprintf("DELETE FROM product WHERE ProductID= %s" ,mysqli_real_escape_string($DB,$id)); //Consulta con el parámetro id recibido
 		$product = mysqli_query($DB, $sql);
 
-		if ($product === TRUE) return true;
+		if ($product === TRUE) return true; //Si se ha hecho la consulta correctamente devolvemos True
 				
 		else return false;
 	}
 
-	function deleteUser($id){
+	function deleteUser($id){ //Función para eliminar un usuario mediante su id
 		$DB = Conectar();
-		$sql = sprintf("DELETE FROM user WHERE UserID= %s" ,mysqli_real_escape_string($DB,$id));	
+		$sql = sprintf("DELETE FROM user WHERE UserID= %s" ,mysqli_real_escape_string($DB,$id)); //Consulta con el parámetro id recibido
 		$product = mysqli_query($DB, $sql);
 
-		if ($product === TRUE) return true;
+		if ($product === TRUE) return true; //Si se ha hecho la consulta correctamente devolvemos True
 				
 		else return false;
 	}
 
-	function modifyProduct($articulo){
+	function modifyProduct($articulo){ //Función para modificar un producto
 		$DB = Conectar();
-		$sql = sprintf("UPDATE product SET ProductID=%s, Name='%s', Cost=%s, Price=%s, CategoryID=%s WHERE ProductID=%s"
-		,mysqli_real_escape_string($DB,$articulo['ProductID'])
+		$sql = sprintf("UPDATE product SET ProductID=%s, Name='%s', Cost=%s, Price=%s, CategoryID=%s WHERE ProductID=%s" //Consulta con los parámetros necesarios
+		,mysqli_real_escape_string($DB,$articulo['ProductID']) //Como le estamos pasando un diccionario, obtenemos el valor que corresponde a cada campo
 		,mysqli_real_escape_string($DB,$articulo['Name'])
 		,mysqli_real_escape_string($DB,$articulo['Cost'])
 		,mysqli_real_escape_string($DB,$articulo['Price'])
@@ -170,18 +175,18 @@
 		,mysqli_real_escape_string($DB,$articulo['ProductID']));	
 		$product = mysqli_query($DB, $sql);
 
-		if ($product === TRUE) return true;
+		if ($product === TRUE) return true; //Si se ha hecho la consulta correctamente devolvemos True
 
 		else{
-			echo mysqli_error($DB);
+			echo mysqli_error($DB); //Si ocurre un error lo mostramos
 			return false;
 		}
 	}
 
-	function modifyUser($usuario){
+	function modifyUser($usuario){ //Función para modificar un usuario
 		$DB = Conectar();
-		$sql = sprintf("UPDATE user SET UserID=%s, FullName='%s', Email='%s', Password='%s', LastAccess='%s', Enabled=%s WHERE UserID=%s"
-		,mysqli_real_escape_string($DB,$usuario['UserID'])
+		$sql = sprintf("UPDATE user SET UserID=%s, FullName='%s', Email='%s', Password='%s', LastAccess='%s', Enabled=%s WHERE UserID=%s" //Consulta con los parámetros necesarios
+		,mysqli_real_escape_string($DB,$usuario['UserID']) //Como le estamos pasando un diccionario, obtenemos el valor que corresponde a cada campo
 		,mysqli_real_escape_string($DB,$usuario['FullName'])
 		,mysqli_real_escape_string($DB,$usuario['Email'])
 		,mysqli_real_escape_string($DB,$usuario['Password'])
@@ -190,45 +195,45 @@
 		,mysqli_real_escape_string($DB,$usuario['UserID']));	
 		$user = mysqli_query($DB, $sql);
 
-		if ($user === TRUE) return true;
+		if ($user === TRUE) return true; //Si se ha hecho la consulta correctamente devolvemos True
 
 		else{
-			echo mysqli_error($DB);
+			echo mysqli_error($DB); //Si ocurre un error lo mostramos
 			return false;
 		}
 	}
 
-	function addProduct($articulo){
+	function addProduct($articulo){ //Función para añadir un artículo a la Base de datos
 		$DB = Conectar();
 		$sql = sprintf("INSERT INTO product (ProductID, Name, Cost, Price, CategoryID) VALUES (NULL, '%s', %s, %s, %s)"
-		,mysqli_real_escape_string($DB,$articulo['Name'])
+		,mysqli_real_escape_string($DB,$articulo['Name']) //Como le estamos pasando un diccionario, obtenemos el valor que corresponde a cada campo
 		,mysqli_real_escape_string($DB,$articulo['Cost'])
 		,mysqli_real_escape_string($DB,$articulo['Price'])
 		,mysqli_real_escape_string($DB,$articulo['CategoryID']));
 		$product = mysqli_query($DB, $sql);
 
-		if ($product === TRUE) return true;
+		if ($product === TRUE) return true; //Si se ha hecho la consulta correctamente devolvemos True
 
 		else{
-			echo mysqli_error($DB);
+			echo mysqli_error($DB); //Si ocurre un error lo mostramos
 			return false;
 		}
 	}
 
-	function addUser($user){
+	function addUser($user){//Función para añadir un usuario a la Base de datos
 		$DB = Conectar();
-		$sql = sprintf("INSERT INTO user (UserID, FullName, Email, Enabled, LastAccess, Password) VALUES (NULL, '%s', '%s', %s, '%s','%s')"
-		,mysqli_real_escape_string($DB,$user['FullName'])
+		$sql = sprintf("INSERT INTO user (UserID, FullName, Email, Enabled, LastAccess, Password) VALUES (NULL, '%s', '%s', %s, '%s','%s')" //Consulta con los parámetros necesarios
+		,mysqli_real_escape_string($DB,$user['FullName'])//Como le estamos pasando un diccionario, obtenemos el valor que corresponde a cada campo
 		,mysqli_real_escape_string($DB,$user['Email'])
 		,mysqli_real_escape_string($DB,$user['Enabled'])
 		,mysqli_real_escape_string($DB,$user['LastAccess'])
 		,mysqli_real_escape_string($DB,$user['Password']));
 		$users = mysqli_query($DB, $sql);
 
-		if ($users === TRUE) return true;
+		if ($users === TRUE) return true; //Si se ha hecho la consulta correctamente devolvemos True
 
 		else{
-			echo mysqli_error($DB);
+			echo mysqli_error($DB); //Si ocurre un error lo mostramos
 			return false;
 		}
 
