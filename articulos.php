@@ -7,9 +7,21 @@
     </head>
     <body>
 
-    <div class= "menu">
-        <a href="acceso.php">Inicio</a>
-    </div>
+    <div class="wrapper">
+            <ul class="menu">
+                <li><a href="acceso.php">Inicio</a></li>
+                
+                    <?php 
+                    if(!isset($_SESSION)) session_start(); //Comporbamos si la sesión está inciada
+                    if(isset($_SESSION["rol"]) && ($_SESSION["rol"] === "admin" || $_SESSION["rol"] === "autorizado")){ //Si el usuario es superAdmin o autorizado se muestra el botón.
+                        
+                        echo '<li><a style="margin-left:10px;" href='."'formArticulos.php?type=add'".'>Crear nuevo artículo</a></li>';
+                    }
+        
+                    ?>
+                
+            </ul>
+        </div>
 
         <?php
             if(!isset($_SESSION)) session_start(); //Comporbamos si la sesión está inciada
@@ -21,13 +33,6 @@
             $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC'; //Indica a través de los headers de qué manera se ordena la tabla (ASC o DESC)
 
             $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc'; //Esto varía el orden de ordenación de la tabla en ascendente o descendente
-        ?>
-        <?php 
-            if(isset($_SESSION["rol"]) && ($_SESSION["rol"] === "admin" || $_SESSION["rol"] === "autorizado")){ //Si el usuario es superAdmin o autorizado se muestra el botón.
-                
-                echo '<button style="margin-left:10px;" onclick="location.href='."'formArticulos.php?type=add'".'">Crear nuevo artículo</button>';
-            }
-        
         ?>
 
         <?php
@@ -82,13 +87,13 @@
             <?php
 
             if($page > 1){
-                echo "<button class=\"paginate\" onclick=\"window.location.href='articulos.php?page=".$page-1 ."'\">Anterior</button>";
+                echo "<button style=\"margin-right: 10px;\" onclick=\"window.location.href='articulos.php?page=".$page-1 ."'\">Anterior</button>";
             }
 
-            echo "<label class='page-indicator'>Página ".$page." / ".ceil($nProducts/$size)."</label>";
+            echo "<label  >Página ".$page." / ".ceil($nProducts/$size)."</label>";
 
             if(ceil($nProducts/$size) > $page ){
-                echo "<button class=\"paginate\" onclick=\"window.location.href='articulos.php?page=".$page+1 ."'\">Siguiente</button>";
+                echo "<button style=\"margin-left:10px;\" onclick=\"window.location.href='articulos.php?page=".$page+1 ."'\">Siguiente</button>";
             }
 
             ?>

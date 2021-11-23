@@ -23,8 +23,8 @@ th {
     border-bottom: 1px black;
 }
 
-a{
-    color: white;
+th a {
+    color:#444;
     text-decoration: none;
 }
 
@@ -89,7 +89,49 @@ td {
     color: gray;
 }
 
+button {
+    border-radius: 10px;
+    border: none;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
 .pagination{
     text-align: center;
     margin: 0 auto;
+    padding-top: 10px;
 }
+  
+  .wrapper{
+    width:100%;
+}
+.menu{
+    width:100%;
+    text-transform:uppercase;
+    font-size:12px;
+    position:relative;
+    z-index:999;
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+    float:left;
+    list-style: none;
+}
+  
+ .menu a{
+      font-weight:bold;
+      text-decoration:none;
+      display:block;
+      padding:20px;
+      color:#444;
+  }
+  
+ .menu li{
+      float:left;
+ }
+  
+ .menu a:hover{
+      background:#eee !important;
+      color:#ccc;
+ } 

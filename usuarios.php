@@ -7,9 +7,13 @@
     </head>
     <body>
 
-    <div class= "menu">
-        <a href="acceso.php">Inicio</a>
-    </div>
+
+        <div class="wrapper">
+            <ul class="menu">
+                <li><a href="acceso.php">Inicio</a></li>
+                <li><a href='formUsuarios.php?type=add'>Crear nuevo usuario</a></li>
+            </ul>
+        </div>
 
         <?php
         
@@ -23,8 +27,6 @@
             $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
         ?>
 
-        <button class="create-button" onclick="location.href='formUsuarios.php?type=add'">Crear nuevo usuario</button>
-        
         <?php
                 require "Conexion/BaseDatos.php";
                 $page = 0;
@@ -92,13 +94,13 @@
         <?php
 
             if($page > 1){
-                echo "<button class=\"paginate\" onclick=\"window.location.href='usuarios.php?page=".$page-1 ."'\">Anterior</button>";
+                echo "<button style=\"margin-right: 10px;\" onclick=\"window.location.href='usuarios.php?page=".$page-1 ."'\">Anterior</button>";
             }
 
             echo "<label>Página ".$page." / ".ceil($nUsers/$size)."</label>";
 
             if(ceil($nUsers/$size) > $page ){
-                echo "<button class=\"paginate\" onclick=\"window.location.href='usuarios.php?page=".$page+1 ."'\">Siguiente</button>";
+                echo "<button style=\"margin-left:10px;\" onclick=\"window.location.href='usuarios.php?page=".$page+1 ."'\">Siguiente</button>";
             }
 
             ?>
