@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="assets/styles/articles.css" media="screen" />
+        <link rel="stylesheet" type="text/css" href="assets/styles/article.css" media="screen" />
         <link rel="shortcut icon" href="assets/imgs/fav.png"/>
         <title>Gestor Comercial</title>
     </head>
