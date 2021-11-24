@@ -40,19 +40,20 @@
                 $page = 0;
                 $min = 0;
                 $size= 10;
-                $nProducts = getProductsCount();
+                $nProducts = getProductsCount();//Obtenemos el conteo del número total de productos para luego poder dividirlo en páginas
                 
-                if(!isset($_GET['page'])){
+                if(!isset($_GET['page'])){ //Comprobamos que la variable page esté seteada en el header para empezar la paginación
                     header("location: articulos.php?page=1");
                 }
                 else {
-                    $page = intval($_GET['page']) -1;
+                    $page = intval($_GET['page']) -1; //Realizamos las operaciones necesarias para la paginación
                     $min = $size * $page;
                     $page = $page + 1;
                 }
 
 
-                $listado = getProductsOrderBy($column, $sort_order, $min, $size); //Obtenemos los productos ya ordenados, ya que pasmos los datos necesarios al método de la consulta
+                $listado = getProductsOrderBy($column, $sort_order, $min, $size); //Obtenemos los productos ya ordenados, ya que pasmos los datos necesarios
+                //al método de la consulta
         ?>
 
         <table style="border=1px solid black">
